@@ -148,6 +148,32 @@ public class main {
         }
 
 
+        public static int MultipleCompany(String company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth) {
+            // Variables
+            int empHrs = 0, totalEmpHrs = 0, totalWorkingDays = 0;
+            // Computation
+            while (totalEmpHrs <= maxHoursPerMonth && totalWorkingDays < numOfWorkingDays) {
+                totalWorkingDays++;
+                int empCheck = (int) Math.floor(Math.random() * 10) % 3;
+                switch (empCheck) {
+                    case IS_PART_TIME:
+                        empHrs = 4;
+                        break;
+                    case IS_FULL_TIME:
+                        empHrs = 8;
+                        break;
+                    default:
+                        empHrs = 0;
+                }
+                totalEmpHrs += empHrs;
+                System.out.println("Day#: " + totalWorkingDays + " Emp Hr: " + empHrs);
+            }
+            int totalEmpWage = totalEmpHrs * empRatePerHour;
+            System.out.println("Total Emp Wage for Company: " + company + " is: " + totalEmpWage);
+            return totalEmpWage;
+        }
+
+
     public static void main(String[] args) {
         System.out.println("Welcome to Employee wage computation problem");
         checkAttendance();
@@ -157,5 +183,7 @@ public class main {
         CalculateEmployeeMonthWage();
         CalculateEmployeeWageTillReachedWorkingDays();
         computeEmpWageClaaMethod();
+        MultipleCompany("DMart", 20, 2, 10);
+        MultipleCompany("Reliance", 10, 4, 20);
     }
 }

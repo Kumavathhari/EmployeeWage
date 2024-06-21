@@ -20,13 +20,19 @@ public class EmpWageBuilder implements IComputeEmpWage{
         public final int numOfWorkingDays;
         public final int maxHoursPerMonth;
         public int totalEmpWage;
+        public List<Integer> dailyWages;
 
         public CompanyEmpWage(String company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth) {
             this.company = company;
             this.empRatePerHour = empRatePerHour;
             this.numOfWorkingDays = numOfWorkingDays;
             this.maxHoursPerMonth = maxHoursPerMonth;
+            this.dailyWages = new ArrayList<>();
             this.totalEmpWage = 0;
+        }
+
+        public void addDailyWage(int dailyWage) {
+            dailyWages.add(dailyWage);
         }
 
         public void setTotalEmpWage(int totalEmpWage) {
@@ -36,6 +42,14 @@ public class EmpWageBuilder implements IComputeEmpWage{
         @Override
         public String toString() {
             return "Total Emp Wage for Company: " + company + " is: " + totalEmpWage;
+        }
+
+        public String getDailyWagesString() {
+            StringBuilder dailyWagesStr = new StringBuilder("Daily Wages for " + company + ": ");
+            for (int wage : dailyWages) {
+                dailyWagesStr.append(wage).append(" ");
+            }
+            return dailyWagesStr.toString();
         }
     }
 
@@ -50,6 +64,7 @@ public class EmpWageBuilder implements IComputeEmpWage{
         for (CompanyEmpWage companyEmpWage : companyEmpWageList) {
             companyEmpWage.setTotalEmpWage(this.computeEmpWage(companyEmpWage));
             System.out.println(companyEmpWage);
+            System.out.println(companyEmpWage.getDailyWagesString());
         }
     }
 
@@ -70,7 +85,9 @@ public class EmpWageBuilder implements IComputeEmpWage{
                     empHrs = 0;
             }
             totalEmpHrs += empHrs;
-            System.out.println("Day#: " + totalWorkingDays + " Emp Hr: " + empHrs);
+            int dailyWage = empHrs * companyEmpWage.empRatePerHour;
+            companyEmpWage.addDailyWage(dailyWage);
+            System.out.println("Day#: " + totalWorkingDays + " Emp Hr: " + empHrs + " Daily Wage: " + dailyWage);
         }
         return totalEmpHrs * companyEmpWage.empRatePerHour;
     }

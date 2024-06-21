@@ -1,5 +1,8 @@
 package EmployeeWage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class main {
 
     public static final int IS_PART_TIME = 1;
@@ -235,8 +238,13 @@ public main(String company, int empRatePerHour, int numOfWorkingDays, int maxHou
         return "Total Emp Wage for Company: " + company + " is: " + totalEmpWage;
     }
 
+// ------------------------
 
 
+
+
+
+    // ------------------------
     public static void main(String[] args) {
         System.out.println("Welcome to Employee wage computation problem");
         System.out.println("----------------------- UC_1 -----------------------");
@@ -271,5 +279,6 @@ public main(String company, int empRatePerHour, int numOfWorkingDays, int maxHou
         System.out.println(dMart);
         reliance.computeEmpWage();
         System.out.println(reliance);
+
     }
 }

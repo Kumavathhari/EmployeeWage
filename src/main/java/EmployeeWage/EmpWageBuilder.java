@@ -92,10 +92,24 @@ public class EmpWageBuilder implements IComputeEmpWage{
         return totalEmpHrs * companyEmpWage.empRatePerHour;
     }
 
+    @Override
+    public int getTotalWageByCompany(String company) {
+        for (CompanyEmpWage companyEmpWage : companyEmpWageList) {
+            if (companyEmpWage.company.equals(company)) {
+                return companyEmpWage.totalEmpWage;
+            }
+        }
+        return -1; // Company not found
+    }
+
     public static void main(String[] args) {
         IComputeEmpWage empWageBuilder = new EmpWageBuilder();
         empWageBuilder.addCompanyEmpWage("DMart", 20, 2, 10);
         empWageBuilder.addCompanyEmpWage("Reliance", 10, 4, 20);
         empWageBuilder.computeEmpWage();
+
+        // Query total wages by company
+        System.out.println("Total wage for DMart: " + empWageBuilder.getTotalWageByCompany("DMart"));
+        System.out.println("Total wage for Reliance: " + empWageBuilder.getTotalWageByCompany("Reliance"));
     }
 }
